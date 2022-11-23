@@ -11,42 +11,51 @@
 		});
 	});
 
-	const sendVerificationCode = (input) => {
+	const sendVerificationCode = (email) => {
 		Joomla.request({
 			method: 'POST',
 			url: options.url,
-			data: 'email=' + input,
+			data: 'email=' + encodeURIComponent(email),
 			onSuccess: (response) => {
 				let message;
+				let success = false;
 				try {
 					const result = JSON.parse(response);
 
 					if (!result.success)
 					{
-						console.log(result);
 						message = result.message || result.messages[0];
 					}
 					else
 					{
-						console.log(result.data);
+						success = result.data[0].success;
 						message = result.data[0].message;
-
 					}
 				} catch (exception) {
 					message = exception;
 				}
 
-				renderMessage(message);
+				renderMessage(message, success);
 			},
 			onError: function onError(xhr) {
-				renderMessage(xhr.statusText);
+				renderMessage(xhr.statusText, 'danger');
 			},
 		});
 	};
 
-	const renderMessage = (message, type) => {
+	const renderMessage = (message, success) => {
 		let element = document.getElementById(options.messageId);
 		element.innerText = message;
-		element.classList.add(type);
+
+		const classesToRemove = success ? options.errorClasses : options.successClasses;
+		const classesToAdd = success ? options.successClasses : options.errorClasses;
+
+		classesToRemove.forEach((className) => {
+			element.classList.remove(className);
+		});
+
+		classesToAdd.forEach((className) => {
+			element.classList.add(className);
+		});
 	};
 })();

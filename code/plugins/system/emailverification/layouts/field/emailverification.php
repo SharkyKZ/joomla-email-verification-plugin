@@ -17,7 +17,9 @@ $app->getDocument()->addScriptOptions(
 		'id' => $id,
 		'messageId' => $messageId,
 		'buttonId' => $buttonId,
-		'url' => Route::_('index.php?option=com_ajax&plugin=emailVerification&group=system&format=json', false, false, Route::TLS_IGNORE, true)
+		'url' => Route::_('index.php?option=com_ajax&plugin=emailVerification&group=system&format=json', false, false, Route::TLS_IGNORE, true),
+		'successClasses' => array('text-success'),
+		'errorClasses' => array('text-danger'),
 	)
 );
 
