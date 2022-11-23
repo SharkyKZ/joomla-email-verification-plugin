@@ -26,7 +26,7 @@ class JFormRuleEmailVerification extends FormRule
 	 * @param   Registry          $input    An optional Registry object with the entire data set to validate against the entire form.
 	 * @param   Form              $form     The form object for which the field is being tested.
 	 *
-	 * @return  bool|\UnexpectedValueException  True if the value is valid, exception otherwise.
+	 * @return  bool|UnexpectedValueException  True if the value is valid, exception otherwise.
 	 *
 	 * @since   1.0.0
 	 */
@@ -35,10 +35,17 @@ class JFormRuleEmailVerification extends FormRule
 		$app = Factory::getApplication();
 		$code = $app->getUserState('plg_system_emailverification.code');
 		$app->setUserState('plg_system_emailverification.code', null);
+		$email = $app->getUserState('plg_system_emailverification.email');
+		$app->setUserState('plg_system_emailverification.email', null);
+
+		if ($input !== null && $input->get('email1') !== $email)
+		{
+			return new UnexpectedValueException(sprintf($app->getLanguage()->_('PLG_SYSTEM_EMAILVERIFICATION_CODE_NOT_FOUND'), $input->get('email1', '')));
+		}
 
 		if ($value !== $code)
 		{
-			return new \UnexpectedValueException($app->getLanguage()->_('PLG_SYSTEM_EMAILVERIFICATION_CODE_INVALID'));
+			return new UnexpectedValueException($app->getLanguage()->_('PLG_SYSTEM_EMAILVERIFICATION_CODE_INVALID'));
 		}
 
 		return true;
