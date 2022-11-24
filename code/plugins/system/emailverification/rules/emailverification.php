@@ -39,11 +39,6 @@ class JFormRuleEmailVerification extends FormRule
 		$email = $app->getUserState('plg_system_emailverification.email');
 		$app->setUserState('plg_system_emailverification.email', null);
 
-		if (!is_string($email) || $email === '')
-		{
-			return new UnexpectedValueException($language->_('PLG_SYSTEM_EMAILVERIFICATION_EMAIL_INVALID'));
-		}
-
 		if ($input !== null)
 		{
 			$realEmail = $input->get('email1', null, 'RAW');
@@ -57,6 +52,11 @@ class JFormRuleEmailVerification extends FormRule
 			{
 				return new UnexpectedValueException(sprintf($language->_('PLG_SYSTEM_EMAILVERIFICATION_CODE_NOT_FOUND_EMAIL'), htmlspecialchars($realEmail, ENT_QUOTES, 'UTF-8')));
 			}
+		}
+
+        if (!is_string($email) || $email === '')
+		{
+			return new UnexpectedValueException($language->_('PLG_SYSTEM_EMAILVERIFICATION_EMAIL_INVALID'));
 		}
 
 		if ($code === null || $code === '')
