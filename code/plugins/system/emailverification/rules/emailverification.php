@@ -33,19 +33,40 @@ class JFormRuleEmailVerification extends FormRule
 	public function test(SimpleXMLElement $element, $value, $group = null, Registry $input = null, Form $form = null)
 	{
 		$app = Factory::getApplication();
+		$language = $app->getLanguage();
 		$code = $app->getUserState('plg_system_emailverification.code');
 		$app->setUserState('plg_system_emailverification.code', null);
 		$email = $app->getUserState('plg_system_emailverification.email');
 		$app->setUserState('plg_system_emailverification.email', null);
 
-		if ($input !== null && $input->get('email1') !== $email)
+		if (!is_string($email) || $email === '')
 		{
-			return new UnexpectedValueException(sprintf($app->getLanguage()->_('PLG_SYSTEM_EMAILVERIFICATION_CODE_NOT_FOUND'), $input->get('email1', '')));
+			return new UnexpectedValueException($language->_('PLG_SYSTEM_EMAILVERIFICATION_EMAIL_INVALID'));
+		}
+
+		if ($input !== null)
+		{
+			$realEmail = $input->get('email1', null, 'RAW');
+
+			if (!is_string($realEmail) || $realEmail === '')
+			{
+				return new UnexpectedValueException($language->_('PLG_SYSTEM_EMAILVERIFICATION_EMAIL_INVALID'));
+			}
+
+			if ($realEmail !== $email)
+			{
+				return new UnexpectedValueException(sprintf($language->_('PLG_SYSTEM_EMAILVERIFICATION_CODE_NOT_FOUND_EMAIL'), htmlspecialchars($realEmail, ENT_QUOTES, 'UTF-8')));
+			}
+		}
+
+		if ($code === null || $code === '')
+		{
+			return new UnexpectedValueException($language->_('PLG_SYSTEM_EMAILVERIFICATION_CODE_NOT_FOUND'));
 		}
 
 		if ($value !== $code)
 		{
-			return new UnexpectedValueException($app->getLanguage()->_('PLG_SYSTEM_EMAILVERIFICATION_CODE_INVALID'));
+			return new UnexpectedValueException($language->_('PLG_SYSTEM_EMAILVERIFICATION_CODE_INVALID'));
 		}
 
 		return true;
