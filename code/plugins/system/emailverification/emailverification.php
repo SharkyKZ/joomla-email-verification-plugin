@@ -84,11 +84,11 @@ final class PlgSystemEmailVerification extends CMSPlugin
 		$mailer->addRecipient($email);
 		$mailer->setSubject($language->_('PLG_SYSTEM_EMAILVERIFICATION_EMAIL_SUBJECT'));
 		$mailer->setBody(sprintf($language->_('PLG_SYSTEM_EMAILVERIFICATION_EMAIL_BODY'), Uri::root(), $code));
-		$result = $mailer->send();
+		$result = $mailer->Send();
 
 		if ($result !== true)
 		{
-			if ($result instanceof \Exception)
+			if (($result instanceof Throwable) || ($result instanceof Exception))
 			{
 				throw $result;
 			}
