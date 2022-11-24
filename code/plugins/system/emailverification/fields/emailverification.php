@@ -43,6 +43,21 @@ class JFormFieldEmailVerification extends JFormFieldText
         );
     }
 
+    /**
+     * Method to get the data to be passed to the layout for rendering.
+     *
+     * @return  array
+     *
+     * @since   1.0.0
+     */
+    protected function getLayoutData()
+    {
+        $data = parent::getLayoutData();
+        $data['value'] = '';
+
+        return $data;
+    }
+
 	/**
      * Method to get the field input markup.
      *

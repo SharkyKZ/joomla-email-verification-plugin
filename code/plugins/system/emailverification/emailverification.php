@@ -56,7 +56,7 @@ final class PlgSystemEmailVerification extends CMSPlugin
 		$form->load(
 			'<form>
 				<fieldset addfieldpath="plugins/system/emailverification/fields" addrulepath="plugins/system/emailverification/rules" name="emailVerification" label="PLG_SYSTEM_EMAILVERIFICATION_FIELDSET_LEGEND">
-					<field type="emailverification" name="emailVerification" required="true" validate="emailverification" label="PLG_SYSTEM_EMAILVERIFICATION_FIELD_LABEL" description="PLG_SYSTEM_EMAILVERIFICATION_FIELD_DESCRIPTION" />
+					<field type="emailverification" name="emailVerification" required="true" validate="emailverification" autocomplete="one-time-code" label="PLG_SYSTEM_EMAILVERIFICATION_FIELD_LABEL" description="PLG_SYSTEM_EMAILVERIFICATION_FIELD_DESCRIPTION" />
 				</fieldset>
 			</form>'
 		);
