@@ -77,7 +77,7 @@ final class PlgSystemEmailVerification extends CMSPlugin
 			throw new RuntimeException($language->_('PLG_SYSTEM_EMAILVERIFICATION_EMAIL_INVALID'));
 		}
 
-		$code = str_pad((string) random_int(000000, 999999), 6, '0', STR_PAD_LEFT);
+		$code = str_pad((string) random_int(1000, 999999), 6, '0', STR_PAD_LEFT);
 		$this->app->setUserState('plg_system_emailverification.email', $email);
 		$this->app->setUserState('plg_system_emailverification.code', $code);
 
