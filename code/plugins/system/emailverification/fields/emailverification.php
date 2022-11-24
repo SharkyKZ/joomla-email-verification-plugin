@@ -7,6 +7,7 @@ defined('_JEXEC') || exit;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\FormHelper;
+use Joomla\CMS\Router\Route;
 
 FormHelper::loadFieldClass('text');
 
@@ -51,10 +52,19 @@ class JFormFieldEmailVerification extends JFormFieldText
      */
 	protected function getInput()
 	{
+		$app = Factory::getApplication();
+
+		$app->getDocument()->addScriptOptions(
+			'plg_system_emailverification',
+			array(
+				'url' => Route::_('index.php?option=com_ajax&plugin=emailVerification&group=system&format=json', false, false, Route::TLS_IGNORE, true),
+			)
+		);
+
 		$data = array(
 			'messageId' => $this->id . '-message',
 			'buttonId' => $this->id . '-button',
-			'app' => Factory::getApplication(),
+			'app' => $app,
 		);
 
 		return $this->getRenderer($this->buttonLayout)->render($data) . parent::getInput();

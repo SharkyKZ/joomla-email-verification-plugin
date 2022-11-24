@@ -6,14 +6,12 @@
 defined('_JEXEC') || exit;
 
 use Joomla\CMS\HTML\HTMLHelper;
-use Joomla\CMS\Router\Route;
 
 extract($displayData);
 
 $app->getDocument()->addScriptOptions(
 	'plg_system_emailverification',
 	array(
-		'url' => Route::_('index.php?option=com_ajax&plugin=emailVerification&group=system&format=json', false, false, Route::TLS_IGNORE, true),
 		'messageId' => $messageId,
 		'buttonId' => $buttonId,
 		'classes' => array(
