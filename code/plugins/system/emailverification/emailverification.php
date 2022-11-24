@@ -80,7 +80,7 @@ final class PlgSystemEmailVerification extends CMSPlugin
 		$email = $this->app->input->get('email', null, 'RAW');
 		$mailer = Factory::getMailer();
 
-		if (!is_string($email) || $email === '' || !$mailer::validateAddress($email, 'html5'))
+		if (empty($email) || !is_string($email) || !$mailer::validateAddress($email, 'html5'))
 		{
 			throw new RuntimeException($language->_('PLG_SYSTEM_EMAILVERIFICATION_EMAIL_INVALID'));
 		}
@@ -109,29 +109,7 @@ final class PlgSystemEmailVerification extends CMSPlugin
 	}
 
 	/**
-     * Clears session data after registration.
-     *
-     * @param   array    $user     Holds the new user data.
-     * @param   boolean  $isNew    True if a new user is stored.
-     * @param   boolean  $success  True if user was successfully stored in the database.
-     * @param   string   $msg      Message.
-     *
-     * @return  void
-     *
-     * @since   1.0.0
-     */
-    public function onUserAfterSave($user, $isNew, $success, $msg)
-    {
-		if (!$this->app->isClient('site') || !$isNew || !$success)
-		{
-			return;
-		}
-
-		$this->app->setUserState('plg_system_emailverification', null);
-	}
-
-	/**
-	 * Returns hash of JS script file.
+	 * Retruns hash of JS script file.
 	 *
 	 * @return  string
 	 *
