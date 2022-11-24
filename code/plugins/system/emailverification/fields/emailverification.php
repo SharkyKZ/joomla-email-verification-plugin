@@ -57,7 +57,7 @@ class JFormFieldEmailVerification extends JFormFieldText
 		$app->getDocument()->addScriptOptions(
 			'plg_system_emailverification',
 			array(
-				'url' => Route::_('index.php?option=com_ajax&plugin=emailVerification&group=system&format=json', false, false, Route::TLS_IGNORE, true),
+				'url' => Route::_('index.php?option=com_ajax&plugin=emailVerification&group=system&format=json', false, Route::TLS_IGNORE, true),
 			)
 		);
 
