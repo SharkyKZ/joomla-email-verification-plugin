@@ -14,10 +14,9 @@ extract($displayData);
 $app->getDocument()->addScriptOptions(
 	'plg_system_emailverification',
 	array(
-		'id' => $id,
+		'url' => Route::_('index.php?option=com_ajax&plugin=emailVerification&group=system&format=json', false, false, Route::TLS_IGNORE, true),
 		'messageId' => $messageId,
 		'buttonId' => $buttonId,
-		'url' => Route::_('index.php?option=com_ajax&plugin=emailVerification&group=system&format=json', false, false, Route::TLS_IGNORE, true),
 		'classes' => array(
 			'success' => array('text-success'),
 			'error' => array('text-danger'),
