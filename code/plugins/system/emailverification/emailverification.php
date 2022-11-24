@@ -88,6 +88,7 @@ final class PlgSystemEmailVerification extends CMSPlugin
 
 		if ($result !== true)
 		{
+			// On J3 an exception can be returned.
 			if (($result instanceof Throwable) || ($result instanceof Exception))
 			{
 				throw $result;
