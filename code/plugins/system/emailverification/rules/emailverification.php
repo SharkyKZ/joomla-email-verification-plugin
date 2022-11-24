@@ -35,9 +35,7 @@ class JFormRuleEmailVerification extends FormRule
 		$app = Factory::getApplication();
 		$language = $app->getLanguage();
 		$code = $app->getUserState('plg_system_emailverification.code');
-		$app->setUserState('plg_system_emailverification.code', null);
 		$email = $app->getUserState('plg_system_emailverification.email');
-		$app->setUserState('plg_system_emailverification.email', null);
 
 		if ($input !== null)
 		{
