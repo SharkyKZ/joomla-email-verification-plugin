@@ -65,6 +65,7 @@ class JFormFieldEmailVerification extends JFormFieldText
 			'messageId' => $this->id . '-message',
 			'buttonId' => $this->id . '-button',
 			'app' => $app,
+			'scriptHash' => PlgSystemEmailVerification::getScriptHash(),
 		);
 
 		return $this->getRenderer($this->buttonLayout)->render($data) . parent::getInput();

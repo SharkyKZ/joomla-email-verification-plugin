@@ -22,7 +22,7 @@ $app->getDocument()->addScriptOptions(
 );
 
 HTMLHelper::_('behavior.core');
-HTMLHelper::_('script', 'plg_system_emailverification/script.js', array('relative' => true));
+HTMLHelper::_('script', 'plg_system_emailverification/script.js', array('relative' => true, 'version' => $scriptHash), array('defer' => true, 'async' => true));
 ?>
 <div>
 	<button id="<?= $this->escape($buttonId) ?>" type="button" class="btn btn-primary"><?= $app->getLanguage()->_('PLG_SYSTEM_EMAILVERIFICATION_FIELD_BUTTON') ?></button>

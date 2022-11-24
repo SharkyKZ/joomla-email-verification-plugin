@@ -19,6 +19,14 @@ use Joomla\CMS\Uri\Uri;
 final class PlgSystemEmailVerification extends CMSPlugin
 {
 	/**
+	 * Script file hash for cache busting.
+	 *
+	 * @var    string
+	 * @since  1.0.0
+	 */
+	private static $scriptHash = 'bd8e5116';
+
+	/**
 	 * Application instance.
 	 *
 	 * @var    \Joomla\CMS\Application\CMSApplicationInterface
@@ -98,5 +106,17 @@ final class PlgSystemEmailVerification extends CMSPlugin
 		}
 
 		return array('success' => true, 'message' => $language->_('PLG_SYSTEM_EMAILVERIFICATION_EMAIL_SENT'));
+	}
+
+	/**
+	 * Retruns hash of JS script file.
+	 *
+	 * @return  string
+	 *
+	 * @since	1.0.0
+	 */
+	public static function getScriptHash()
+	{
+		return self::$scriptHash;
 	}
 }
