@@ -9,7 +9,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 
 extract($displayData);
 
-$app->getDocument()->addScriptOptions(
+$document->addScriptOptions(
 	'plg_system_emailverification',
 	array(
 		'messageId' => $messageId,
@@ -25,8 +25,8 @@ HTMLHelper::_('behavior.core');
 HTMLHelper::_('script', 'plg_system_emailverification/script.js', array('relative' => true, 'version' => $scriptHash), array('defer' => true, 'async' => true));
 ?>
 <div>
-	<button id="<?= $this->escape($buttonId) ?>" type="button" class="btn btn-primary"><?= $app->getLanguage()->_('PLG_SYSTEM_EMAILVERIFICATION_FIELD_BUTTON') ?></button>
+	<button id="<?= $this->escape($buttonId) ?>" type="button" class="btn btn-primary"><?= $language->_('PLG_SYSTEM_EMAILVERIFICATION_FIELD_BUTTON') ?></button>
 </div>
 <div id="<?= $this->escape($messageId) ?>"></div>
 <br>
-<noscript><div><?= $app->getLanguage()->_('PLG_SYSTEM_EMAILVERIFICATION_NOSCRIPT'); ?></div></noscript>
+<noscript><div><?= $language->_('PLG_SYSTEM_EMAILVERIFICATION_NOSCRIPT'); ?></div></noscript>

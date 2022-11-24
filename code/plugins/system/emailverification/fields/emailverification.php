@@ -56,16 +56,15 @@ class JFormFieldEmailVerification extends JFormFieldText
 
 		$app->getDocument()->addScriptOptions(
 			'plg_system_emailverification',
-			array(
-				'url' => Route::_('index.php?option=com_ajax&plugin=emailVerification&group=system&format=json', false, Route::TLS_IGNORE, true),
-			)
+			array('url' => Route::_('index.php?option=com_ajax&plugin=emailVerification&group=system&format=json', false, Route::TLS_IGNORE, true))
 		);
 
 		$data = array(
 			'messageId' => $this->id . '-message',
 			'buttonId' => $this->id . '-button',
-			'app' => $app,
 			'scriptHash' => PlgSystemEmailVerification::getScriptHash(),
+			'language' => $app->getLanguage(),
+			'document' => $app->getDocument(),
 		);
 
 		return $this->getRenderer($this->buttonLayout)->render($data) . parent::getInput();
