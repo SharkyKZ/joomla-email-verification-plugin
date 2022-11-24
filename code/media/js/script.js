@@ -32,7 +32,7 @@
 				renderMessage(message, success);
 			},
 			onError: function onError(xhr) {
-				renderMessage(xhr.statusText, "danger");
+				renderMessage(xhr.statusText, success);
 			}
 		});
 	};
