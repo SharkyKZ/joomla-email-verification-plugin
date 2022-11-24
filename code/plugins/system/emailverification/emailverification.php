@@ -26,11 +26,21 @@ final class PlgSystemEmailVerification extends CMSPlugin
 	 */
 	protected $app;
 
+	/**
+	 * Prepares form.
+	 *
+	 * @param   Form   $form  The form to be altered.
+	 * @param   mixed  $data  The associated data for the form.
+	 *
+	 * @return  void
+	 *
+	 * @since	1.0.0
+	 */
 	public function onContentPrepareForm(Form $form, $data)
 	{
 		if ($form->getName() !== 'com_users.registration')
 		{
-			return true;
+			return;
 		}
 
 		$this->loadLanguage();
@@ -44,6 +54,14 @@ final class PlgSystemEmailVerification extends CMSPlugin
 		);
 	}
 
+	/**
+	 * Sends verification email.
+	 *
+	 * @return  array
+	 *
+	 * @since	1.0.0
+	 * @throws  Throwable
+	 */
 	public function onAjaxEmailVerification()
 	{
 		$this->app->allowCache(false);
