@@ -38,7 +38,7 @@
 				renderMessage(message, success);
 			},
 			onError: function onError(xhr) {
-				renderMessage(xhr.statusText, success);
+				renderMessage(xhr.statusText, 'danger');
 			},
 		});
 	};
@@ -47,8 +47,8 @@
 		let element = document.getElementById(options.messageId);
 		element.innerText = message;
 
-		const classesToRemove = success ? options.errorClasses : options.successClasses;
-		const classesToAdd = success ? options.successClasses : options.errorClasses;
+		const classesToRemove = success ? options.classes.error : options.classes.success;
+		const classesToAdd = success ? options.classes.success : options.classes.error;
 
 		classesToRemove.forEach((className) => {
 			element.classList.remove(className);
