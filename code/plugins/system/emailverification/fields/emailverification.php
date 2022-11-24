@@ -42,20 +42,22 @@ class JFormFieldEmailVerification extends JFormFieldText
         );
     }
 
-	protected function getLayoutData()
-	{
-		$data = parent::getLayoutData();
-		$id = isset($data['id']) ? $data['id'] : $this->id;
-		$data['messageId'] = $id . '-message';
-		$data['buttonId'] = $id . '-button';
-		$data['app'] = Factory::getApplication();
-
-		return $data;
-	}
-
+	/**
+     * Method to get the field input markup.
+     *
+     * @return  string  The field input markup.
+     *
+     * @since   1.0.0
+     */
 	protected function getInput()
 	{
-		$html = '<div>' . $this->getRenderer($this->buttonLayout)->render($this->getLayoutData()) . '</div><br>';
+		$data = array(
+			'messageId' => $this->id . '-message',
+			'buttonId' => $this->id . '-button',
+			'app' => Factory::getApplication(),
+		);
+
+		$html = '<div>' . $this->getRenderer($this->buttonLayout)->render($data) . '</div><br>';
 
 		return $html . '<div>' . parent::getInput() . '</div>';
 	}
