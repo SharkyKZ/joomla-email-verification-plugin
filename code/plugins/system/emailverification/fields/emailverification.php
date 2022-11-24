@@ -57,8 +57,6 @@ class JFormFieldEmailVerification extends JFormFieldText
 			'app' => Factory::getApplication(),
 		);
 
-		$html = '<div>' . $this->getRenderer($this->buttonLayout)->render($data) . '</div><br>';
-
-		return $html . '<div>' . parent::getInput() . '</div>';
+		return $this->getRenderer($this->buttonLayout)->render($data) . parent::getInput();
 	}
 }
