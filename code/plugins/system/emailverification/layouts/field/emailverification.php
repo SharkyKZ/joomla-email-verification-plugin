@@ -27,6 +27,6 @@ HTMLHelper::_('script', 'plg_system_emailverification/script.js', array('relativ
 <div>
 	<button id="<?= $this->escape($buttonId) ?>" type="button" class="btn btn-primary"><?= $app->getLanguage()->_('PLG_SYSTEM_EMAILVERIFICATION_FIELD_BUTTON') ?></button>
 </div>
-<br>
 <div id="<?= $this->escape($messageId) ?>"></div>
+<br>
 <noscript><div><?= $app->getLanguage()->_('PLG_SYSTEM_EMAILVERIFICATION_NOSCRIPT'); ?></div></noscript>
