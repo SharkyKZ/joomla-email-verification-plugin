@@ -88,6 +88,7 @@ final class PlgSystemEmailVerification extends CMSPlugin
 		$code = str_pad((string) random_int(1000, 999999), 6, '0', STR_PAD_LEFT);
 		$this->app->setUserState('plg_system_emailverification.email', $email);
 		$this->app->setUserState('plg_system_emailverification.code', $code);
+		$this->app->setUserState('plg_system_emailverification.retries', 0);
 
 		$mailer->addRecipient($email);
 		$mailer->setSubject($language->_('PLG_SYSTEM_EMAILVERIFICATION_EMAIL_SUBJECT'));

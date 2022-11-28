@@ -32,12 +32,12 @@ class JFormRuleEmailVerification extends FormRule
 	 */
 	public function test(SimpleXMLElement $element, $value, $group = null, Registry $input = null, Form $form = null)
 	{
+		/** @var \Joomla\CMS\Application\CMSWebApplicationInterface $app */
 		$app = Factory::getApplication();
 		$language = $app->getLanguage();
 		$code = $app->getUserState('plg_system_emailverification.code');
-		$app->setUserState('plg_system_emailverification.code', null);
 		$email = $app->getUserState('plg_system_emailverification.email');
-		$app->setUserState('plg_system_emailverification.email', null);
+		$retries = (int) $app->getUserState('plg_system_emailverification.retries', 0);
 
 		if ($input !== null)
 		{
@@ -54,7 +54,7 @@ class JFormRuleEmailVerification extends FormRule
 			}
 		}
 
-        if (!is_string($email) || $email === '')
+		if (!is_string($email) || $email === '')
 		{
 			return new UnexpectedValueException($language->_('PLG_SYSTEM_EMAILVERIFICATION_EMAIL_INVALID'));
 		}
@@ -66,6 +66,19 @@ class JFormRuleEmailVerification extends FormRule
 
 		if ($value !== $code)
 		{
+			$retries++;
+
+			if ($retries > 3)
+			{
+				$app->setUserState('plg_system_emailverification.email', null);
+				$app->setUserState('plg_system_emailverification.code', null);
+				$app->setUserState('plg_system_emailverification.retries', null);
+
+				return new UnexpectedValueException($language->_('PLG_SYSTEM_EMAILVERIFICATION_CODE_EXPIRED'));
+			}
+
+			$app->setUserState('plg_system_emailverification.retries', $retries);
+
 			return new UnexpectedValueException($language->_('PLG_SYSTEM_EMAILVERIFICATION_CODE_INVALID'));
 		}
 
