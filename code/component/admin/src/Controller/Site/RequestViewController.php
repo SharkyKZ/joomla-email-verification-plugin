@@ -20,6 +20,10 @@ class RequestViewController implements ControllerInterface
     {
         $view = $this->mvcFactory->createView('Request', $app->getName());
         $model = $this->mvcFactory->createModel('Request', $app->getName());
+        $form = $model->getForm();
+        $view
+            ->addData('form', $form)
+            ->addData('language', $app->getLanguage());
         $output = $view->render($app->getDocument());
 
         echo $output;

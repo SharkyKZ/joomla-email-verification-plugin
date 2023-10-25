@@ -2,6 +2,8 @@
 
 namespace Sharky\Component\EmailVerification\Administrator;
 
+\defined('_JEXEC') || exit;
+
 use Joomla\DI\Container;
 
 final class MvcFactory

@@ -2,11 +2,13 @@
 
 namespace Sharky\Component\EmailVerification\Administrator;
 
-defined('_JEXEC') || exit;
+\defined('_JEXEC') || exit;
 
 use Joomla\CMS\Document\Document;
 
 interface ViewInterface
 {
 	public function render(Document $document): string;
+
+    public function addData(string $key, mixed $data): static;
 }

@@ -13,6 +13,7 @@
 	</files>
 	<administration>
 		<files folder="admin">
+			<folder>forms</folder>
 			<folder>layouts</folder>
 			<folder>services</folder>
 			<folder>src</folder>

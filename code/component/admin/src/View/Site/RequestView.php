@@ -7,21 +7,12 @@ namespace Sharky\Component\EmailVerification\Administrator\View\Site;
 use Joomla\CMS\Application\SiteApplication;
 use Joomla\CMS\Document\Document;
 use Joomla\CMS\Layout\FileLayout;
-use Sharky\Component\EmailVerification\Administrator\ViewInterface;
+use Sharky\Component\EmailVerification\Administrator\AbstractView;
 
-class RequestView implements ViewInterface
+class RequestView extends AbstractView
 {
-	public function __construct(protected SiteApplication $app)
-	{
-
-	}
-
 	public function render(Document $document): string
     {
-        $layout = new FileLayout('request.default');
-        $layout->addIncludePath(\JPATH_ADMINISTRATOR . '/components/com_emailverification/layouts');
-        $layout->addIncludePath(\JPATH_ADMINISTRATOR . '/templates/' . $this->app->getTemplate(true)->template . '/layouts/com_emailverification');
-
-        return $layout->render();
+        return $this->renderer->render('request/default', $this->getData());
     }
 }

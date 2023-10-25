@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form>
+	<fieldset name="default" label="COM_EMAILVERIFICATION_REQUEST_FIELDSET_LABEL">
+		<field
+			name="email"
+			type="email"
+			label="JGLOBAL_EMAIL"
+			required="true"
+			validate="email"
+			autocomplete="email"
+		/>
+
+		<field
+			name="captcha"
+			type="captcha"
+			label="JGLOBAL_CAPTCHA"
+			validate="captcha"
+		/>
+	</fieldset>
+</form>

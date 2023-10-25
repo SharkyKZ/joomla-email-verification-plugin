@@ -2,24 +2,17 @@
 
 namespace Sharky\Component\EmailVerification\Administrator\Model\Site;
 
-defined('_JEXEC') || exit;
+\defined('_JEXEC') || exit;
 
-use Joomla\CMS\MVC\Model\ListModelInterface;
+use Joomla\CMS\Form\Form;
 
-class RequestModel implements ListModelInterface
+final class RequestModel
 {
-	public function getItems(): array
+	public function getForm(): Form
     {
-        $dir = JPATH_ADMINISTRATOR . '/components/com_mvcoverride/overrides';
+        $form = new Form('com_emailverification.request', ['control' => 'jform']);
+        $form->loadFile(\JPATH_ADMINISTRATOR . '/components/com_emailverification/forms/request.xml');
 
-        if (!is_dir($dir))
-        {
-            return [];
-        }
-
-        foreach (scandir($dir) as $file)
-        {
-            var_dump($file);
-        }
+        return $form;
     }
 }

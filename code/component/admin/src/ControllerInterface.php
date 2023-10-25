@@ -2,7 +2,7 @@
 
 namespace Sharky\Component\EmailVerification\Administrator;
 
-defined('_JEXEC') || exit;
+\defined('_JEXEC') || exit;
 
 use Joomla\CMS\Application\CMSWebApplicationInterface;
 use Joomla\Input\Input;

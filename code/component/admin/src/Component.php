@@ -2,6 +2,8 @@
 
 namespace Sharky\Component\EmailVerification\Administrator;
 
+\defined('_JEXEC') || exit;
+
 use Joomla\CMS\Application\CMSApplicationInterface;
 use Joomla\CMS\Dispatcher\ComponentDispatcherFactoryInterface;
 use Joomla\CMS\Dispatcher\DispatcherInterface;
