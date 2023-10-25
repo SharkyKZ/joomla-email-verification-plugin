@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" method="upgrade">
+	<name>com_emailverification</name>
+	<author>Acme</author>
+	<creationDate>2021-10-13</creationDate>
+	<copyright>(C) 2021 SharkyKZ</copyright>
+	<license>GPL-2.0-or-later</license>
+	<version>1.0.0</version>
+	<description>COM_EMAILVERIFICATION_XML_DESCRIPTION</description>
+	<namespace path="src">Sharky\Component\EmailVerification</namespace>
+	<files folder="site">
+		<folder>tmpl</folder>
+	</files>
+	<administration>
+		<files folder="admin">
+			<folder>layouts</folder>
+			<folder>services</folder>
+			<folder>src</folder>
+		</files>
+	</administration>
+</extension>
