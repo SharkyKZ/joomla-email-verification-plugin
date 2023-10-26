@@ -7,21 +7,16 @@
 	<license>GPL-2.0-or-later</license>
 	<version>1.0.0</version>
 	<description>PLG_SYSTEM_EMAILVERIFICATION_XML_DESCRIPTION</description>
+	<namespace path="src">Sharky\Plugin\System\EmailVerification</namespace>
 	<files>
 		<filename plugin="emailverification">emailverification.php</filename>
 		<filename>install.script.php</filename>
-		<folder>fields</folder>
-		<folder>layouts</folder>
-		<folder>rules</folder>
 	</files>
 	<scriptfile>install.script.php</scriptfile>
 	<languages>
-		<language tag="en-GB">language/en-GB/en-GB.plg_system_emailverification.ini</language>
-		<language tag="en-GB">language/en-GB/en-GB.plg_system_emailverification.sys.ini</language>
+		<language tag="en-GB">language/en-GB/plg_system_emailverification.ini</language>
+		<language tag="en-GB">language/en-GB/plg_system_emailverification.sys.ini</language>
 	</languages>
-	<media folder="media" destination="plg_system_emailverification">
-		<folder>js</folder>
-	</media>
 	<changelogurl>https://raw.githubusercontent.com/SharkyKZ/joomla-email-verification-plugin/master/updates/changelog.xml</changelogurl>
 	<updateservers>
 		<server type="extension" name="System - Email Verification">https://raw.githubusercontent.com/SharkyKZ/joomla-email-verification-plugin/master/updates/updates.xml</server>
