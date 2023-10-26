@@ -61,8 +61,6 @@ class GenericRenderer implements RendererInterface
             }
         }
 
-        exit;
-
         throw new \RuntimeException('Layout file not found.');
     }
 
