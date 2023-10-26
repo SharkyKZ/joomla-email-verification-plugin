@@ -9,7 +9,8 @@
 	<description>PLG_SYSTEM_EMAILVERIFICATION_XML_DESCRIPTION</description>
 	<namespace path="src">Sharky\Plugin\System\EmailVerification</namespace>
 	<files>
-		<filename plugin="emailverification">emailverification.php</filename>
+		<folder plugin="emailverification">services</folder>
+		<folder>src</folder>
 		<filename>install.script.php</filename>
 	</files>
 	<scriptfile>install.script.php</scriptfile>
