@@ -27,38 +27,38 @@ return new class implements ServiceProviderInterface
 		$container->share(
 			ComponentInterface::class,
 			static fn (Container $container) => new Component(
-                new class ($container) implements ComponentDispatcherFactoryInterface
-                {
-                    public function __construct(private Container $container)
-                    {
-                    }
+				new class ($container) implements ComponentDispatcherFactoryInterface
+				{
+					public function __construct(private Container $container)
+					{
+					}
 
-                    public function createDispatcher(CMSApplicationInterface $application, ?Input $input = null): DispatcherInterface
-                    {
-                        return new Dispatcher(
-                            $application,
-                            $input ?? $application->getInput(),
-                            $this->container->get(MvcFactory::class)
-                        );
-                    }
-                }
-            )
+					public function createDispatcher(CMSApplicationInterface $application, ?Input $input = null): DispatcherInterface
+					{
+						return new Dispatcher(
+							$application,
+							$input ?? $application->getInput(),
+							$this->container->get(MvcFactory::class)
+						);
+					}
+				}
+			)
 		);
-        $container->share(
-            MvcFactory::class,
-            static fn (Container $container) => new MvcFactory('Sharky\\Component\\EmailVerification\\Administrator', $container)
-        );
+		$container->share(
+			MvcFactory::class,
+			static fn (Container $container) => new MvcFactory('Sharky\\Component\\EmailVerification\\Administrator', $container)
+		);
 
-        $container->share(
-            RendererInterface::class,
-            static function (Container $container)
-            {
-                $renderer = new GenericRenderer;
-                $renderer->prependPath(\JPATH_ADMINISTRATOR . '/components/com_emailverification/layouts');
-                $renderer->prependPath(\JPATH_ADMINISTRATOR . '/templates/' . Factory::getApplication()->getTemplate(true)->template . '/layouts/com_emailverification');
+		$container->share(
+			RendererInterface::class,
+			static function (Container $container)
+			{
+				$renderer = new GenericRenderer;
+				$renderer->prependPath(\JPATH_ADMINISTRATOR . '/components/com_emailverification/layouts');
+				$renderer->prependPath(\JPATH_ADMINISTRATOR . '/templates/' . Factory::getApplication()->getTemplate(true)->template . '/layouts/com_emailverification');
 
-                return $renderer;
-            }
-        );
+				return $renderer;
+			}
+		);
 	}
 };

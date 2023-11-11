@@ -6,91 +6,93 @@ namespace Sharky\Component\EmailVerification\Administrator\Renderer;
 
 class GenericRenderer implements RendererInterface
 {
-    protected array $paths = [];
+	protected array $paths = [];
 
 	public function render(string $layout, array $data = []): string
-    {
-        $layout = $this->getLayoutFile($layout);
+	{
+		$layout = $this->getLayoutFile($layout);
 
-        ob_start();
-        (function ()
-        {
-            extract(func_get_arg(1));
+		ob_start();
+		(function ()
+		{
+			extract(func_get_arg(1));
 
-            require func_get_arg(0);
-        }) ($layout, $data);
+			require func_get_arg(0);
+		}) ($layout, $data);
 
-        return ob_get_clean();
-    }
+		return ob_get_clean();
+	}
 
-    public function prependPath(string $path): static
-    {
-        $path = $this->normalizePath($path);
+	public function prependPath(string $path): static
+	{
+		$path = $this->normalizePath($path);
 
-        if (!\in_array($path, $this->paths, true))
-        {
-            array_unshift($this->paths, $path);
-        }
+		if (!\in_array($path, $this->paths, true))
+		{
+			array_unshift($this->paths, $path);
+		}
 
-        return $this;
-    }
+		return $this;
+	}
 
-    public function appendPath(string $path)
-    {
-        $path = $this->normalizePath($path);
+	public function appendPath(string $path): static
+	{
+		$path = $this->normalizePath($path);
 
-        if (!\in_array($path, $this->paths, true))
-        {
-            $this->paths[] = $path;
-        }
+		if (!\in_array($path, $this->paths, true))
+		{
+			$this->paths[] = $path;
+		}
 
-        return $this;
-    }
+		return $this;
+	}
 
-    private function getLayoutFile(string $layout): string
-    {
-        $layout = $this->normalizePath($layout);
+	private function getLayoutFile(string $layout): string
+	{
+		$layout = $this->normalizePath($layout);
 
-        foreach ($this->paths as $path)
-        {
-            $file = $path . '/' . $layout . '.php';
+		foreach ($this->paths as $path)
+		{
+			$file = $path . '/' . $layout . '.php';
 
-            if (is_file($file))
-            {
-                return $file;
-            }
-        }
+			if (is_file($file))
+			{
+				return $file;
+			}
+		}
 
-        throw new \RuntimeException('Layout file not found.');
-    }
+		exit;
 
-    private function normalizePath(string $path): string
-    {
-        $segments = [];
-        $path = str_replace(['\\', '//'], ['/', '/'], $path);
+		throw new \RuntimeException('Layout file not found.');
+	}
 
-        foreach (explode('/', $path) as $segment)
-        {
-            if ($segment === '' || $segment === '.')
-            {
-                continue;
-            }
+	private function normalizePath(string $path): string
+	{
+		$segments = [];
+		$path = str_replace(['\\', '//'], '/', $path);
 
-            if ($segment === '..')
-            {
-                if (!$segments)
-                {
-                    throw new \InvalidArgumentException('Invalid path.');
-                }
+		foreach (explode('/', $path) as $segment)
+		{
+			if ($segment === '' || $segment === '.')
+			{
+				continue;
+			}
 
-                array_pop($segments);
+			if ($segment === '..')
+			{
+				if (!$segments)
+				{
+					throw new \InvalidArgumentException('Invalid path.');
+				}
 
-                continue;
-            }
+				array_pop($segments);
 
-            $segments[] = $segment;
-        }
+				continue;
+			}
 
-        return implode('/', $segments);
-    }
+			$segments[] = $segment;
+		}
+
+		return implode('/', $segments);
+	}
 }

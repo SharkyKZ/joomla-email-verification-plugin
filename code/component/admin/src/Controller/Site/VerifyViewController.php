@@ -9,17 +9,16 @@ use Joomla\Input\Input;
 use Sharky\Component\EmailVerification\Administrator\Controller\ControllerInterface;
 use Sharky\Component\EmailVerification\Administrator\MvcFactory;
 
-final class RequestViewController implements ControllerInterface
+final class VerifyViewController implements ControllerInterface
 {
 	public function __construct(private MvcFactory $mvcFactory)
 	{
-
 	}
 
 	public function execute(CMSWebApplicationInterface $app, Input $input): void
 	{
-		$view = $this->mvcFactory->createView('Request', $app->getName());
-		$model = $this->mvcFactory->createModel('Request', $app->getName());
+		$view = $this->mvcFactory->createView('Verify', $app->getName());
+		$model = $this->mvcFactory->createModel('Verify', $app->getName());
 		$form = $model->getForm();
 		$view
 			->addData('form', $form)

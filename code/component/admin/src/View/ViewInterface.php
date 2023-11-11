@@ -1,6 +1,6 @@
 <?php
 
-namespace Sharky\Component\EmailVerification\Administrator;
+namespace Sharky\Component\EmailVerification\Administrator\View;
 
 \defined('_JEXEC') || exit;
 
@@ -10,5 +10,5 @@ interface ViewInterface
 {
 	public function render(Document $document): string;
 
-    public function addData(string $key, mixed $data): static;
+	public function addData(string $key, mixed $data): static;
 }

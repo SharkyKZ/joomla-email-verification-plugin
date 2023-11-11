@@ -1,6 +1,6 @@
 <?php
 
-namespace Sharky\Component\EmailVerification\Administrator;
+namespace Sharky\Component\EmailVerification\Administrator\Controller;
 
 \defined('_JEXEC') || exit;
 
