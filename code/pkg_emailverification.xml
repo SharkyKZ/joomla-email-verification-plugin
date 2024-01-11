@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<extension type="package" method="upgrade">
+	<name>pkg_emailverification</name>
+	<author>SharkyKZ</author>
+	<creationDate>2024-01-11</creationDate>
+	<packagename>emailverification</packagename>
+	<version>1.0.0</version>
+	<files>
+		<folder type="component" id="com_emailverification">com_emailverification</folder>
+		<folder type="plugin" id="emailverification" group="system">plg_system_emailverification</folder>
+	</files>
+</extension>
