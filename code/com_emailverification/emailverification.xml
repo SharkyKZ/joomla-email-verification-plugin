@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="component" method="upgrade">
 	<name>com_emailverification</name>
-	<author>Acme</author>
+	<author>SharkyKZ</author>
 	<creationDate>2021-10-13</creationDate>
 	<copyright>(C) 2021 SharkyKZ</copyright>
 	<license>GPL-2.0-or-later</license>
@@ -16,7 +16,18 @@
 			<folder>forms</folder>
 			<folder>layouts</folder>
 			<folder>services</folder>
+			<folder>sql</folder>
 			<folder>src</folder>
 		</files>
 	</administration>
+	<install>
+		<sql>
+			<file driver="mysql" charset="utf8">sql/mysql/install.sql</file>
+		</sql>
+	</install>
+	<uninstall>
+		<sql>
+			<file driver="mysql" charset="utf8">sql/mysql/uninstall.sql</file>
+		</sql>
+	</uninstall>
 </extension>
