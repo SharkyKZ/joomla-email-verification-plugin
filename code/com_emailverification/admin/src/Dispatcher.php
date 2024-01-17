@@ -17,6 +17,8 @@ final class Dispatcher extends CoreDispatcher
 
 	public function dispatch()
 	{
+		$this->app->getLanguage()->load('com_emailverification', \JPATH_ADMINISTRATOR);
+
 		$task = $this->input->get->get('task');
 		$view = $this->input->get->get('view');
 
