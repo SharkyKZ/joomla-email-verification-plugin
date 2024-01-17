@@ -19,10 +19,12 @@ final class RequestController implements ControllerInterface
 	public function execute(CMSWebApplicationInterface $app, Input $input): void
 	{
 		$language = $app->getLanguage();
+		/** @var \Sharky\Component\EmailVerification\Administrator\Model\Site\RequestModel */
 		$model = $this->mvcFactory->createModel('Request', $app->getName());
 		$form = $model->getForm();
+		$data = $form->process($input->get('jform', [], 'ARRAY'));
 
-		if (!$form->validate($input->get('jform', [], 'ARRAY')))
+		if ($data === false)
 		{
 			foreach ($form->getErrors() as $error)
 			{
@@ -30,6 +32,15 @@ final class RequestController implements ControllerInterface
 			}
 
 			$app->redirect('index.php?option=com_emailverification&view=request');
+		}
+
+		try
+		{
+			$model->createRequest($data['email'], $app->getConfig(), $app->getLanguage(), $app->getRouter());
+		}
+		catch (\Exception $e)
+		{
+			$app->enqueueMessage($e->getMessage());
 		}
 
 		$app->enqueueMessage($language->_('COM_EMAILVERIFICATION_REQUEST_CREATED'));

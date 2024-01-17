@@ -30,11 +30,21 @@ final class RequestModel
 		return str_pad((string) random_int(1000, 999999), 6, '0', \STR_PAD_LEFT);
 	}
 
-	public function createRequest(string $code, string $email, Registry $config, Language $language, Router $router): bool
+	/**
+	 * @throws \Exception
+	 */
+	public function createRequest(string $email, Registry $config, Language $language, Router $router): void
 	{
+		$code = $this->generateCode();
+
 		$verifyUrl = $router->build('index.php?option=com_emailverification&task=verify&code=' . $code);
 		$this->mailer->setSubject($language->_('COM_EMAILVERIFICATION_REQUEST_SUBJECT'));
 		$this->mailer->setBody(sprintf('COM_EMAILVERIFICATION_REQUEST_BODY', $config->get('sitename', Uri::root()), $code));
 		$this->mailer->addRecipient($email);
+
+		if (!$this->mailer->Send())
+		{
+			throw new \RuntimeException($language->_('COM_EMAILVERIFICATION_REQUEST_FAILED'));
+		}
 	}
 }
