@@ -4,7 +4,7 @@
 		<field
 			name="code"
 			type="text"
-			label="	COM_EMAILVERIFICATION_CODE_FIELD_LABEL"
+			label="COM_EMAILVERIFICATION_CODE_FIELD_LABEL"
 			required="true"
 		/>
 	</fieldset>
