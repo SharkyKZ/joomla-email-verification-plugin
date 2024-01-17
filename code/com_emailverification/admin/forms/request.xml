@@ -13,7 +13,7 @@
 		<field
 			name="captcha"
 			type="captcha"
-			label="JGLOBAL_CAPTCHA"
+			label="COM_EMAILVERIFICATION_REQUEST_FIELD_CAPTCHA_LABEL"
 			validate="captcha"
 		/>
 	</fieldset>
