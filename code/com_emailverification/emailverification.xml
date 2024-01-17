@@ -19,6 +19,10 @@
 			<folder>sql</folder>
 			<folder>src</folder>
 		</files>
+		<languages folder="language/en-GB">
+			<language tag="en-GB">com_emailverification.ini</language>
+			<language tag="en-GB">com_emailverification.sys.ini</language>
+		</languages>
 	</administration>
 	<install>
 		<sql>
