@@ -6,6 +6,8 @@
 
 defined('_JEXEC') || exit;
 
+use Joomla\CMS\Application\ApplicationHelper;
+use Joomla\CMS\Application\CMSApplication;
 use Joomla\CMS\Application\CMSApplicationInterface;
 use Joomla\CMS\Dispatcher\ComponentDispatcherFactoryInterface;
 use Joomla\CMS\Dispatcher\DispatcherInterface;
@@ -55,7 +57,16 @@ return new class implements ServiceProviderInterface
 			{
 				$renderer = new GenericRenderer;
 				$renderer->prependPath(\JPATH_ADMINISTRATOR . '/components/com_emailverification/layouts');
-				$renderer->prependPath(\JPATH_ADMINISTRATOR . '/templates/' . Factory::getApplication()->getTemplate(true)->template . '/layouts/com_emailverification');
+				$app = Factory::getApplication();
+
+				if ($app instanceof CMSApplication)
+				{
+					$appInfo = ApplicationHelper::getClientInfo($app->getName(), true);
+
+					$renderer->prependPath(
+						$appInfo->path . '/templates/' . $app->getTemplate(true)->template . '/layouts/com_emailverification'
+					);
+				}
 
 				return $renderer;
 			}

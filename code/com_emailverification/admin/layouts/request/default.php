@@ -3,7 +3,7 @@
 defined('_JEXEC') || exit;
 
 ?>
-<form action="index.php?option=com_emailverification&task=request" method="post">
+<form action="<?= $router->build('index.php?option=com_emailverification&task=request') ?>" method="post">
 <?php foreach ($form->getFieldsets() as $name => $fieldset) : ?>
 	<fieldset>
 		<legend><?= $language->_($fieldset->label) ?></legend>

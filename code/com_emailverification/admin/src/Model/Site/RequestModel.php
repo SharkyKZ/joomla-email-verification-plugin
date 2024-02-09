@@ -39,7 +39,7 @@ final class RequestModel
 
 		$verifyUrl = $router->build('index.php?option=com_emailverification&task=verify&code=' . $code);
 		$this->mailer->setSubject($language->_('COM_EMAILVERIFICATION_REQUEST_SUBJECT'));
-		$this->mailer->setBody(sprintf('COM_EMAILVERIFICATION_REQUEST_BODY', $config->get('sitename', Uri::root()), $code));
+		$this->mailer->setBody(sprintf($language->_('COM_EMAILVERIFICATION_REQUEST_BODY'), $config->get('sitename', Uri::root()), $code));
 		$this->mailer->addRecipient($email);
 
 		if (!$this->mailer->Send())
