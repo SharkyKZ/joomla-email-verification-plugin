@@ -89,6 +89,15 @@ final class Plugin implements PluginInterface
 
 	public function onContentPrepareForm(PrepareFormEvent $event)
 	{
+		$form = $event->getForm();
 
+		if ($form->getName() !== 'com_users.registration')
+		{
+			return;
+		}
+
+		$session = $this->app->getSession();
+		$form->setFieldAttribute('email1', 'readonly', true);
+		$form->setValue('email1', null, $session->get('com_emailverification.email'));
 	}
 }
