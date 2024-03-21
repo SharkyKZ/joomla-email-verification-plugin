@@ -5,18 +5,23 @@ namespace Sharky\Component\EmailVerification\Administrator;
 \defined('_JEXEC') || exit;
 
 use Joomla\CMS\Application\CMSWebApplicationInterface;
-use Joomla\CMS\Dispatcher\Dispatcher as CoreDispatcher;
+use Joomla\CMS\Component\Exception\MissingComponentException;
+use Joomla\CMS\Dispatcher\DispatcherInterface;
 use Joomla\Input\Input;
 
-final class Dispatcher extends CoreDispatcher
+final class Dispatcher implements DispatcherInterface
 {
-	public function __construct(CMSWebApplicationInterface $app, Input $input, private MvcFactory $mvcFactory)
+	public function __construct(private CMSWebApplicationInterface $app, private Input $input, private MvcFactory $mvcFactory)
 	{
-		parent::__construct($app, $input);
 	}
 
 	public function dispatch()
 	{
+		if (!$this->app->isClient('site'))
+		{
+			throw new \RuntimeException($this->app->getLanguage()->_('JLIB_APPLICATION_ERROR_COMPONENT_NOT_FOUND'));
+		}
+
 		$this->app->getLanguage()->load('com_emailverification', \JPATH_ADMINISTRATOR);
 
 		$task = $this->input->get->get('task');
