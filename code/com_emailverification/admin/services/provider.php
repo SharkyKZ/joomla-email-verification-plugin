@@ -18,7 +18,6 @@ use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
 use Joomla\Input\Input;
 use Sharky\Component\EmailVerification\Administrator\Dispatcher;
-use Sharky\Component\EmailVerification\Administrator\MvcFactory;
 use Sharky\Component\EmailVerification\Administrator\Renderer\GenericRenderer;
 use Sharky\Component\EmailVerification\Administrator\Renderer\RendererInterface;
 
