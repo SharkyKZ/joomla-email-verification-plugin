@@ -7,24 +7,22 @@ namespace Sharky\Component\EmailVerification\Administrator\Controller\Site;
 use Joomla\CMS\Application\CMSWebApplicationInterface;
 use Joomla\Input\Input;
 use Sharky\Component\EmailVerification\Administrator\Controller\ControllerInterface;
-use Sharky\Component\EmailVerification\Administrator\MvcFactory;
+use Sharky\Component\EmailVerification\Administrator\Model\Site\RequestModel;
+use Sharky\Component\EmailVerification\Administrator\View\Site\RequestView;
 
 final class RequestViewController implements ControllerInterface
 {
-	public function __construct(private MvcFactory $mvcFactory)
+	public function __construct(private RequestModel $model, private RequestView $view)
 	{
-
 	}
 
 	public function execute(CMSWebApplicationInterface $app, Input $input): void
 	{
-		$view = $this->mvcFactory->createView('Request', $app->getName());
-		$model = $this->mvcFactory->createModel('Request', $app->getName());
-		$form = $model->getForm();
-		$view
+		$form = $this->model->getForm();
+		$this->view
 			->addData('form', $form)
 			->addData('language', $app->getLanguage());
-		$output = $view->render($app->getDocument());
+		$output = $this->view->render($app->getDocument());
 
 		echo $output;
 	}

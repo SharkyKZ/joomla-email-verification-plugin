@@ -8,20 +8,19 @@ use Joomla\CMS\Application\CMSWebApplicationInterface;
 use Joomla\CMS\Router\SiteRouter;
 use Joomla\Input\Input;
 use Sharky\Component\EmailVerification\Administrator\Controller\ControllerInterface;
-use Sharky\Component\EmailVerification\Administrator\MvcFactory;
+use Sharky\Component\EmailVerification\Administrator\Model\Site\RequestModel;
+use Sharky\Component\EmailVerification\Administrator\Model\Site\VerifyModel;
 
 final class VerifyController implements ControllerInterface
 {
-	public function __construct(private MvcFactory $mvcFactory, private SiteRouter $router)
+	public function __construct(private VerifyModel $verifyModel, private RequestModel $requestModel, private SiteRouter $router)
 	{
 	}
 
 	public function execute(CMSWebApplicationInterface $app, Input $input): void
 	{
 		$language = $app->getLanguage();
-		/** @var \Sharky\Component\EmailVerification\Administrator\Model\Site\VerifyModel */
-		$model = $this->mvcFactory->createModel('Verify', $app->getName());
-		$form = $model->getForm();
+		$form = $this->verifyModel->getForm();
 		$data = $form->process($input->get('jform', [], 'ARRAY'));
 
 		if ($data === false)
@@ -34,12 +33,9 @@ final class VerifyController implements ControllerInterface
 			$app->redirect($this->router->build('index.php?option=com_emailverification&view=request'));
 		}
 
-		/** @var \Sharky\Component\EmailVerification\Administrator\Model\Site\RequestModel */
-		$model = $this->mvcFactory->createModel('Request', $app->getName());
-
 		try
 		{
-			$result = $model->verifyRequest($data['code'], $app->getLanguage(), $this->router);
+			$result = $this->requestModel->verifyRequest($data['code'], $app->getLanguage(), $this->router);
 		}
 		catch (\Exception $e)
 		{

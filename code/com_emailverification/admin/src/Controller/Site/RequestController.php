@@ -8,20 +8,18 @@ use Joomla\CMS\Application\CMSWebApplicationInterface;
 use Joomla\CMS\Router\SiteRouter;
 use Joomla\Input\Input;
 use Sharky\Component\EmailVerification\Administrator\Controller\ControllerInterface;
-use Sharky\Component\EmailVerification\Administrator\MvcFactory;
+use Sharky\Component\EmailVerification\Administrator\Model\Site\RequestModel;
 
 final class RequestController implements ControllerInterface
 {
-	public function __construct(private MvcFactory $mvcFactory, private SiteRouter $router)
+	public function __construct(private RequestModel $model, private SiteRouter $router)
 	{
 	}
 
 	public function execute(CMSWebApplicationInterface $app, Input $input): void
 	{
 		$language = $app->getLanguage();
-		/** @var \Sharky\Component\EmailVerification\Administrator\Model\Site\RequestModel */
-		$model = $this->mvcFactory->createModel('Request', $app->getName());
-		$form = $model->getForm();
+		$form = $this->model->getForm();
 		$data = $form->process($input->get('jform', [], 'ARRAY'));
 
 		if ($data === false)
@@ -36,7 +34,7 @@ final class RequestController implements ControllerInterface
 
 		try
 		{
-			$model->createRequest($data['email'], $app->get('sitename', ''), $app->getLanguage(), $this->router);
+			$this->model->createRequest($data['email'], $app->get('sitename', ''), $app->getLanguage(), $this->router);
 		}
 		catch (\Exception $e)
 		{
