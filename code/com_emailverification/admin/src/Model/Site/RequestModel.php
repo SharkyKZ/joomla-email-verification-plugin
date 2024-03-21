@@ -42,13 +42,23 @@ final class RequestModel
 
 		$verifyUrl = $router->build('index.php?option=com_emailverification&task=verify&code=' . $code);
 		$this->mailer->setSubject($language->_('COM_EMAILVERIFICATION_REQUEST_SUBJECT'));
-		$this->mailer->setBody(sprintf($language->_('COM_EMAILVERIFICATION_REQUEST_BODY'), $sitename, Uri::root(), $code));
+		$this->mailer->setBody(
+			$this->replaceText(
+				$language->_('COM_EMAILVERIFICATION_REQUEST_BODY'),
+				['SITENAME' => $sitename, 'ROOT_URI' => Uri::root(), 'TOKEN' => $code]
+			)
+		);
 		$this->mailer->addRecipient($email);
 
 		if (!$this->mailer->Send())
 		{
 			throw new \RuntimeException($language->_('COM_EMAILVERIFICATION_REQUEST_SENDING_FAILED'));
 		}
+	}
+
+	private function replaceText(string $text, array $replacements): string
+	{
+		return str_replace(array_map(static fn ($v) => '{' . $v . '}', array_keys($replacements)), $replacements, $text);
 	}
 
 	public function verifyRequest(string $token, Language $language): \stdClass
