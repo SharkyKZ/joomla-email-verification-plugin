@@ -5,13 +5,14 @@ namespace Sharky\Component\EmailVerification\Administrator;
 \defined('_JEXEC') || exit;
 
 use Joomla\CMS\Application\CMSWebApplicationInterface;
-use Joomla\CMS\Component\Exception\MissingComponentException;
 use Joomla\CMS\Dispatcher\DispatcherInterface;
+use Joomla\DI\Container;
 use Joomla\Input\Input;
+use Sharky\Component\EmailVerification\Administrator\Controller\ControllerInterface;
 
 final class Dispatcher implements DispatcherInterface
 {
-	public function __construct(private CMSWebApplicationInterface $app, private Input $input, private MvcFactory $mvcFactory)
+	public function __construct(private CMSWebApplicationInterface $app, private Input $input, private Container $container)
 	{
 	}
 
@@ -19,7 +20,7 @@ final class Dispatcher implements DispatcherInterface
 	{
 		if (!$this->app->isClient('site'))
 		{
-			throw new \RuntimeException($this->app->getLanguage()->_('JLIB_APPLICATION_ERROR_COMPONENT_NOT_FOUND'));
+			throw new \RuntimeException($this->app->getLanguage()->_('JLIB_APPLICATION_ERROR_COMPONENT_NOT_FOUND'), 404);
 		}
 
 		$this->app->getLanguage()->load('com_emailverification', \JPATH_ADMINISTRATOR);
@@ -29,7 +30,7 @@ final class Dispatcher implements DispatcherInterface
 
 		if ($task)
 		{
-			if ($controller = $this->mvcFactory->createController($task, $this->app->getName()))
+			if ($controller = $this->createController($task))
 			{
 				return $controller->execute($this->app, $this->input);
 			}
@@ -39,7 +40,7 @@ final class Dispatcher implements DispatcherInterface
 
 		if ($view)
 		{
-			if ($controller = $this->mvcFactory->createController($view . 'View', $this->app->getName()))
+			if ($controller = $this->createController($view . 'View'))
 			{
 				return $controller->execute($this->app, $this->input);
 			}
@@ -48,5 +49,17 @@ final class Dispatcher implements DispatcherInterface
 		}
 
 		throw new \RuntimeException('Controller class not found.');
+	}
+
+	private function createController(string $name): ?ControllerInterface
+	{
+		$controller = $this->container->buildObject(__NAMESPACE__ . '\\Controller\\Site\\' . $name . 'Controller');
+
+		if ($controller === false)
+		{
+			return null;
+		}
+
+		return $controller;
 	}
 }

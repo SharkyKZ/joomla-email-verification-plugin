@@ -40,20 +40,16 @@ return new class implements ServiceProviderInterface
 						return new Dispatcher(
 							$application,
 							$input ?? $application->getInput(),
-							$this->container->get(MvcFactory::class)
+							$this->container
 						);
 					}
 				}
 			)
 		);
-		$container->share(
-			MvcFactory::class,
-			static fn (Container $container) => new MvcFactory('Sharky\\Component\\EmailVerification\\Administrator', $container)
-		);
 
 		$container->share(
 			RendererInterface::class,
-			static function (Container $container)
+			static function ()
 			{
 				$renderer = new GenericRenderer;
 				$renderer->prependPath(\JPATH_ADMINISTRATOR . '/components/com_emailverification/layouts');
