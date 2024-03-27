@@ -40,12 +40,15 @@ final class Dispatcher implements DispatcherInterface
 
 		if ($view)
 		{
+			if ($this->input->get('format', 'html') !== 'html')
+			{
+				throw new \RuntimeException('Controller class not found.');
+			}
+
 			if ($controller = $this->createController($view . 'View'))
 			{
 				return $controller->execute($this->app, $this->input);
 			}
-
-			throw new \RuntimeException('Controller class not found.');
 		}
 
 		throw new \RuntimeException('Controller class not found.');
