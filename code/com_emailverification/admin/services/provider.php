@@ -8,6 +8,7 @@ defined('_JEXEC') || exit;
 
 use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Application\CMSApplication;
+use Joomla\CMS\Application\CMSApplicationInterface;
 use Sharky\Component\EmailVerification\Administrator\Component;
 use Joomla\CMS\Extension\ComponentInterface;
 use Joomla\CMS\Factory;
@@ -21,6 +22,7 @@ return new class implements ServiceProviderInterface
 	public function register(Container $container)
 	{
 		$container->share(Container::class, $container);
+		$container->share(CMSApplicationInterface::class, Factory::getApplication());
 
 		$container->share(
 			ComponentInterface::class,

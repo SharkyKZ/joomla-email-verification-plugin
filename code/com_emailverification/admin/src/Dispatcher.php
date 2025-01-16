@@ -25,8 +25,9 @@ final class Dispatcher implements DispatcherInterface
 
 		$this->app->getLanguage()->load('com_emailverification', \JPATH_ADMINISTRATOR);
 
-		$task = $this->input->get->get('task');
-		$view = $this->input->get->get('view');
+		// @todo this should really be reading GET
+		$task = $this->input->get('task');
+		$view = $this->input->get('view');
 
 		if ($task)
 		{
@@ -56,7 +57,7 @@ final class Dispatcher implements DispatcherInterface
 
 	private function createController(string $name): ?ControllerInterface
 	{
-		$controller = $this->container->buildObject(__NAMESPACE__ . '\\Controller\\Site\\' . $name . 'Controller');
+		$controller = $this->container->buildObject(__NAMESPACE__ . '\\Controller\\Site\\' . ucfirst($name) . 'Controller');
 
 		if ($controller === false)
 		{
