@@ -11,7 +11,7 @@ use Sharky\Component\EmailVerification\Administrator\Controller\ControllerInterf
 use Sharky\Component\EmailVerification\Administrator\Model\Site\RequestModel;
 use Sharky\Component\EmailVerification\Administrator\Model\Site\VerifyModel;
 
-final class VerifyController implements ControllerInterface
+final readonly class VerifyController implements ControllerInterface
 {
 	public function __construct(private VerifyModel $verifyModel, private RequestModel $requestModel, private SiteRouter $router)
 	{

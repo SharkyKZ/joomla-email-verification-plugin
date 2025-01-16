@@ -10,7 +10,7 @@ use Joomla\Input\Input;
 use Sharky\Component\EmailVerification\Administrator\Controller\ControllerInterface;
 use Sharky\Component\EmailVerification\Administrator\Model\Site\RequestModel;
 
-final class RequestController implements ControllerInterface
+final readonly class RequestController implements ControllerInterface
 {
 	public function __construct(private RequestModel $model, private SiteRouter $router)
 	{

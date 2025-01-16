@@ -12,7 +12,7 @@ use Sharky\Component\EmailVerification\Administrator\Component;
 use Joomla\CMS\Extension\ComponentInterface;
 use Joomla\CMS\Factory;
 use Joomla\DI\Container;
-use Joomla\DI\ServiceProviderInterface;
+use Joomla\DI\ServiceProviderInterface;;
 use Sharky\Component\EmailVerification\Administrator\Renderer\GenericRenderer;
 use Sharky\Component\EmailVerification\Administrator\Renderer\RendererInterface;
 
@@ -20,6 +20,8 @@ return new class implements ServiceProviderInterface
 {
 	public function register(Container $container)
 	{
+		$container->share(Container::class, $container);
+
 		$container->share(
 			ComponentInterface::class,
 			static fn (Container $container) => new Component($container)
