@@ -5,11 +5,11 @@
  */
 defined('_JEXEC') || exit;
 
+use Joomla\CMS\Application\CMSApplicationInterface;
 use Joomla\CMS\Extension\PluginInterface;
 use Joomla\CMS\Factory;
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
-use Joomla\Event\DispatcherInterface;
 use Sharky\Plugin\System\EmailVerification\Plugin;
 
 /**
@@ -30,15 +30,8 @@ return new class implements ServiceProviderInterface
 	 */
 	public function register(Container $container): void
 	{
-		$container->set(
-			PluginInterface::class,
-			static function (Container $container)
-			{
-				return new Plugin(
-					$container->get(DispatcherInterface::class),
-					Factory::getApplication()
-				);
-			}
-		);
+		$container->share(CMSApplicationInterface::class, Factory::getApplication());
+		$container->buildObject(Plugin::class, true);
+		$container->alias(PluginInterface::class, Plugin::class);
 	}
 };
