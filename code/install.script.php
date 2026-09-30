@@ -48,7 +48,7 @@ final class Pkg_EmailVerificationInstallerScript implements InstallerScriptInter
 	 */
 	private const PHP_UNSUPPORTED = '9.0';
 
-	public function preflight(string $type,InstallerAdapter $parent): bool
+	public function preflight(string $type, InstallerAdapter $parent): bool
 	{
 		if ($type === 'uninstall')
 		{
