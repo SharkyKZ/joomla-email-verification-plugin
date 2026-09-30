@@ -5,6 +5,8 @@
  */
 defined('_JEXEC') || exit;
 
+use Joomla\CMS\Installer\InstallerAdapter;
+use Joomla\CMS\Installer\InstallerScriptInterface;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Log\Log;
 use Joomla\CMS\Version;
@@ -12,7 +14,7 @@ use Joomla\CMS\Version;
 /**
  * Package installer script.
  */
-final class Pkg_EmailVerificationInstallerScript
+final class Pkg_EmailVerificationInstallerScript implements InstallerScriptInterface
 {
 	/**
 	 * Minimum supported Joomla! version.
@@ -46,17 +48,7 @@ final class Pkg_EmailVerificationInstallerScript
 	 */
 	private const PHP_UNSUPPORTED = '9.0';
 
-	/**
-	 * Function called before extension installation/update/removal procedure commences.
-	 *
-	 * @param   string                                 $type    The type of change (install, update, discover_install or uninstall).
-	 * @param   Joomla\CMS\Installer\InstallerAdapter  $parent  The class calling this method.
-	 *
-	 * @return  bool  Returns true if installation can proceed.
-	 *
-	 * @since   1.0.0
-	 */
-	public function preflight($type, $parent)
+	public function preflight(string $type,InstallerAdapter $parent): bool
 	{
 		if ($type === 'uninstall')
 		{
@@ -87,6 +79,26 @@ final class Pkg_EmailVerificationInstallerScript
 			return false;
 		}
 
+		return true;
+	}
+
+	public function install(InstallerAdapter $adapter): true
+	{
+		return true;
+	}
+
+	public function update(InstallerAdapter $adapter): true
+	{
+		return true;
+	}
+
+	public function postflight(string $type, InstallerAdapter $adapter): true
+	{
+		return true;
+	}
+
+	public function uninstall(InstallerAdapter $adapter): true
+	{
 		return true;
 	}
 }
