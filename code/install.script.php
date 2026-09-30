@@ -20,7 +20,7 @@ final class Pkg_EmailVerificationInstallerScript
 	 * @var    string
 	 * @since  1.0.0
 	 */
-	private $joomlaMinimum = '4.0';
+	private $joomlaMinimum = '4.4';
 
 	/**
 	 * Next unsupported Joomla! version.
@@ -28,7 +28,7 @@ final class Pkg_EmailVerificationInstallerScript
 	 * @var    string
 	 * @since  1.0.0
 	 */
-	private $joomlaUnsupported = '6.0';
+	private $joomlaUnsupported = '7.0';
 
 	/**
 	 * Minimum supported PHP version.
@@ -36,7 +36,7 @@ final class Pkg_EmailVerificationInstallerScript
 	 * @var    string
 	 * @since  1.0.0
 	 */
-	private $phpMinimum = '7.2.5';
+	private $phpMinimum = '8.1';
 
 	/**
 	 * Next unsupported PHP version.
@@ -44,7 +44,7 @@ final class Pkg_EmailVerificationInstallerScript
 	 * @var    string
 	 * @since  1.0.0
 	 */
-	private $phpUnsupported = '8.5';
+	private $phpUnsupported = '9.0';
 
 	/**
 	 * Function called before extension installation/update/removal procedure commences.
