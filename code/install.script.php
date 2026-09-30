@@ -10,9 +10,9 @@ use Joomla\CMS\Log\Log;
 use Joomla\CMS\Version;
 
 /**
- * Plugin installer script.
+ * Package installer script.
  */
-final class PlgSystemEmailVerificationInstallerScript
+final class Pkg_EmailVerificationInstallerScript
 {
 	/**
 	 * Minimum supported Joomla! version.
@@ -58,6 +58,8 @@ final class PlgSystemEmailVerificationInstallerScript
 	 */
 	public function preflight($type, $parent)
 	{
+		Log::add(Text::sprintf('success'), Log::WARNING, 'jerror');
+
 		if ($type === 'uninstall')
 		{
 			return true;
@@ -75,14 +77,14 @@ final class PlgSystemEmailVerificationInstallerScript
 
 		if (version_compare(PHP_VERSION, $this->phpMinimum, '<'))
 		{
-			Log::add(Text::sprintf('PLG_SYSTEM_EMAILVERIFICATION_INSTALL_PHP_MINIMUM', $this->phpMinimum), Log::WARNING, 'jerror');
+			Log::add(Text::sprintf('PKG_EMAILVERIFICATION_INSTALL_PHP_MINIMUM', $this->phpMinimum), Log::WARNING, 'jerror');
 
 			return false;
 		}
 
 		if (version_compare(PHP_VERSION, $this->phpUnsupported, '>='))
 		{
-			Log::add(Text::sprintf('PLG_SYSTEM_EMAILVERIFICATION_INSTALL_PHP_UNSUPPORTED', $this->phpUnsupported), Log::WARNING, 'jerror');
+			Log::add(Text::sprintf('PKG_EMAILVERIFICATION_INSTALL_PHP_UNSUPPORTED', $this->phpUnsupported), Log::WARNING, 'jerror');
 
 			return false;
 		}

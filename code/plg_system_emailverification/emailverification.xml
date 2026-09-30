@@ -11,9 +11,7 @@
 	<files>
 		<folder plugin="emailverification">services</folder>
 		<folder>src</folder>
-		<filename>install.script.php</filename>
 	</files>
-	<scriptfile>install.script.php</scriptfile>
 	<languages>
 		<language tag="en-GB">language/en-GB/plg_system_emailverification.ini</language>
 		<language tag="en-GB">language/en-GB/plg_system_emailverification.sys.ini</language>
