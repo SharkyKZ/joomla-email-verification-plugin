@@ -20,7 +20,7 @@ final class Pkg_EmailVerificationInstallerScript
 	 * @var    string
 	 * @since  1.0.0
 	 */
-	private $joomlaMinimum = '4.4';
+	private const JOOMLA_MINIMUM = '4.4';
 
 	/**
 	 * Next unsupported Joomla! version.
@@ -28,7 +28,7 @@ final class Pkg_EmailVerificationInstallerScript
 	 * @var    string
 	 * @since  1.0.0
 	 */
-	private $joomlaUnsupported = '7.0';
+	private const JOOMLA_UNSUPPORTED = '7.0';
 
 	/**
 	 * Minimum supported PHP version.
@@ -36,7 +36,7 @@ final class Pkg_EmailVerificationInstallerScript
 	 * @var    string
 	 * @since  1.0.0
 	 */
-	private $phpMinimum = '8.1';
+	private const PHP_MINIMUM = '8.1';
 
 	/**
 	 * Next unsupported PHP version.
@@ -44,7 +44,7 @@ final class Pkg_EmailVerificationInstallerScript
 	 * @var    string
 	 * @since  1.0.0
 	 */
-	private $phpUnsupported = '9.0';
+	private const PHP_UNSUPPORTED = '9.0';
 
 	/**
 	 * Function called before extension installation/update/removal procedure commences.
@@ -65,26 +65,26 @@ final class Pkg_EmailVerificationInstallerScript
 			return true;
 		}
 
-		if (version_compare(JVERSION, $this->joomlaMinimum, '<'))
+		if (version_compare(JVERSION, self::JOOMLA_MINIMUM, '<'))
 		{
 			return false;
 		}
 
-		if (version_compare(JVERSION, $this->joomlaUnsupported, '>=') && !(new Version)->isInDevelopmentState())
+		if (version_compare(JVERSION, self::JOOMLA_UNSUPPORTED, '>=') && !(new Version)->isInDevelopmentState())
 		{
 			return false;
 		}
 
-		if (version_compare(PHP_VERSION, $this->phpMinimum, '<'))
+		if (version_compare(PHP_VERSION, self::PHP_MINIMUM, '<'))
 		{
-			Log::add(Text::sprintf('PKG_EMAILVERIFICATION_INSTALL_PHP_MINIMUM', $this->phpMinimum), Log::WARNING, 'jerror');
+			Log::add(Text::sprintf('PKG_EMAILVERIFICATION_INSTALL_PHP_MINIMUM', self::PHP_MINIMUM), Log::WARNING, 'jerror');
 
 			return false;
 		}
 
-		if (version_compare(PHP_VERSION, $this->phpUnsupported, '>='))
+		if (version_compare(PHP_VERSION, self::PHP_UNSUPPORTED, '>='))
 		{
-			Log::add(Text::sprintf('PKG_EMAILVERIFICATION_INSTALL_PHP_UNSUPPORTED', $this->phpUnsupported), Log::WARNING, 'jerror');
+			Log::add(Text::sprintf('PKG_EMAILVERIFICATION_INSTALL_PHP_UNSUPPORTED', self::PHP_UNSUPPORTED), Log::WARNING, 'jerror');
 
 			return false;
 		}
