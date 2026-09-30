@@ -58,8 +58,6 @@ final class Pkg_EmailVerificationInstallerScript
 	 */
 	public function preflight($type, $parent)
 	{
-		Log::add(Text::sprintf('success'), Log::WARNING, 'jerror');
-
 		if ($type === 'uninstall')
 		{
 			return true;
